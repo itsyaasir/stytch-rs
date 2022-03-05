@@ -10,9 +10,7 @@ pub struct MagicLinks {
 }
 
 impl MagicLinks {
-    // pub fn new(email: String) -> Self {
-    //     Self { email }
-    // }
+    // pub fn new(email: String) -> Self {}
 
     // pub fn get_url(&self, base: &Base) -> String {
     //     format!("{}{}", base.get_url("magic_links"), self.email)
@@ -99,7 +97,7 @@ impl Email {
         let data = serde_json::to_string(&data).unwrap();
         let url = format!("{}/email/login_or_create", self.magic_link_url());
         let res = self.base.post(url, data).await;
-        println!("{:?}", res);
+        println!("{:?}", res.text().await);
         Ok(())
     }
 }

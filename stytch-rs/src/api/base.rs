@@ -60,6 +60,7 @@ impl Base {
     //     return self._requester_base.post(url, auth=self.auth, headers=self.headers, data=json.dumps(data))
 
     pub async fn post(&self, url: String, data: String) -> reqwest::Response {
+        println!("URL : {}", url);
         let response = reqwest::Client::new()
             .post(url)
             .basic_auth(
