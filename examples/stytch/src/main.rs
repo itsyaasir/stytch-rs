@@ -1,36 +1,67 @@
-use actix_web::{dev::Server, web, App, HttpServer};
 use stytch_rs::{
-    api::{base::Base, magic_links::Email},
-    model::client::{Client, Environment},
+    api::magic_links::{InviteParams, LoginOrCreateParams},
+    model::client::{Environment, Stytch},
 };
-#[actix_web::main]
+
+#[tokio::main]
 async fn main() {
-    let project_id = "".to_string();
-    let secret = "".to_string();
+    // Load .env file
+    std::env::set_var("RUST_LOG", "actix_web=info");
 
-    let client = Client::new(project_id, secret, Environment::Test);
+    // Extract the environment variables from .env file
+    let project_id = dotenv::var("PROJECT_ID").unwrap();
+    let secret = dotenv::var("SECRET").unwrap();
 
-    let base = Base::new(&client);
+    // Client
+    let client = Stytch::new(project_id, secret, Environment::Test);
 
-    let email = Email::new("goodwonder5@gmail.com".to_owned(), &base, client);
+    // let params = LoginOrCreateParams {
+    //     login_magic_link_url: Some("http://localhost:3000/authenticate".to_string()),
+    //     signup_magic_link_url: Some("http://localhost:3000/authenticate".to_string()),
+    //     login_expiration_minutes: Some(10),
+    //     signup_expiration_minutes: Some(10),
+    //     attributes: None,
+    //     create_user_as_pending: None,
+    // };
+    // println!("Client 1");
+    // match client
+    //     .magic_links()
+    //     .email("goodwonder5@gmail.com".to_string())
+    //     .login_or_create(params)
+    //     .await
+    // {
+    //     Ok(_) => println!("Success"),
+    //     Err(e) => println!("Error: {}", e),
+    // }
 
-    match email
-        .login_or_create(
-            "goodwonder5@gmail.com".to_string(),
-            Some("http://localhost:3000/authenticate".to_string()),
-            Some("http://localhost:3000/authenticate".to_string()),
-            None,
-            None,
-            None,
-            Some(true),
-        )
+    // let invite_params = InviteParams {
+    //     invite_magic_link_url: Some("http://localhost:3000/authenticate".to_string()),
+    //     invite_expiration_minutes: Some(10),
+    //     attributes: None,
+    //     first_name: Some("Yasir".to_string()),
+    //     last_name: Some("Shariff".to_string()),
+    //     middle_name: Some("Adan".to_string()),
+    // };
+
+    // println!("Client 2");
+
+    // match client
+    //     .magic_links()
+    //     .email("goodwonder5@gmail.com".to_string())
+    //     .invite(invite_params)
+    //     .await
+    // {
+    //     Ok(_) => println!("Success"),
+    //     Err(e) => println!("Error: {}", e),
+    // }
+
+    match client
+        .magic_links()
+        .email("goodwonder5@gmail.com".to_string())
+        .revoke()
         .await
     {
-        Ok(_) => {
-            println!("ok");
-        }
-        Err(e) => {
-            println!("error: {}", e);
-        }
+        Ok(_) => println!("Success"),
+        Err(e) => println!("Error: {}", e),
     }
 }

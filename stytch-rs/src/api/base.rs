@@ -1,4 +1,4 @@
-use crate::model::client::Client;
+use crate::model::client::Stytch;
 use std::{collections::HashMap, str::FromStr};
 
 // Const version number
@@ -6,12 +6,12 @@ const VERSION: &str = "0.1.0";
 #[derive(Debug, Clone)]
 pub struct Base {
     pub headers: reqwest::header::HeaderMap,
-    pub client: Client,
+    pub client: Stytch,
     pub auth: HashMap<String, String>,
 }
 
 impl Base {
-    pub fn new(client: &Client) -> Self {
+    pub fn new(client: &Stytch) -> Self {
         Self {
             headers: {
                 let mut headers = HashMap::new();
@@ -55,9 +55,6 @@ impl Base {
         }
         true
     }
-
-    //  def _post(self, url: str, data: Dict):
-    //     return self._requester_base.post(url, auth=self.auth, headers=self.headers, data=json.dumps(data))
 
     pub async fn post(&self, url: String, data: String) -> reqwest::Response {
         println!("URL : {}", url);
