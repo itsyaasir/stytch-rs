@@ -11,3 +11,4 @@ serde_json = "1.0"
 stytch-rs = { path = "../../stytch-rs" }
 dotenv = "0.15.0"
 tokio = { version = "1.17.0", features = ["full"] }
+anyhow = "1.0.0"

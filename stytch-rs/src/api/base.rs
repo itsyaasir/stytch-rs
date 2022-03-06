@@ -2,7 +2,7 @@ use crate::model::client::Stytch;
 use std::{collections::HashMap, str::FromStr};
 
 // Const version number
-const VERSION: &str = "0.1.0";
+pub const VERSION: &str = "0.1.0";
 #[derive(Debug, Clone)]
 pub struct Base {
     pub headers: reqwest::header::HeaderMap,
@@ -56,7 +56,11 @@ impl Base {
         true
     }
 
-    pub async fn post(&self, url: String, data: String) -> reqwest::Response {
+    pub async fn post(
+        &self,
+        url: String,
+        data: String,
+    ) -> Result<reqwest::Response, reqwest::Error> {
         println!("URL : {}", url);
         let response = reqwest::Client::new()
             .post(url)
@@ -67,8 +71,7 @@ impl Base {
             .headers(self.headers.clone())
             .body(data)
             .send()
-            .await
-            .unwrap();
+            .await;
         response
     }
 }

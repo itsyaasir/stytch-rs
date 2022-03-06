@@ -1,10 +1,9 @@
-use stytch_rs::{
-    api::magic_links::{InviteParams, LoginOrCreateParams},
-    model::client::{Environment, Stytch},
-};
+use std::io::Error;
+
+use stytch_rs::model::client::{Environment, Stytch};
 
 #[tokio::main]
-async fn main() {
+async fn main() -> anyhow::Result<()> {
     // Load .env file
     std::env::set_var("RUST_LOG", "actix_web=info");
 
@@ -55,13 +54,11 @@ async fn main() {
     //     Err(e) => println!("Error: {}", e),
     // }
 
-    match client
+    let res = client
         .magic_links()
         .email("goodwonder5@gmail.com".to_string())
         .revoke()
-        .await
-    {
-        Ok(_) => println!("Success"),
-        Err(e) => println!("Error: {}", e),
-    }
+        .await?;
+    println!("{:?}", res);
+    Ok(())
 }
