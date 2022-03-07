@@ -1,35 +1,16 @@
 use std::collections::HashMap;
 
-use serde::{Deserialize, Serialize};
-
 use crate::{
+    api::base::Base,
     errors::{Error, StytchErrorTypes},
     model::{
         client::Stytch,
-        magic_link_model::{InviteParams, LoginOrCreateParams},
+        magic_link_model::{
+            InviteParams, InviteResponse, LoginOrCreateParams, LoginOrCreateResponse,
+            RevokeInviteResponse,
+        },
     },
 };
-
-use super::base::Base;
-
-#[derive(Debug, Clone)]
-pub struct MagicLinks<'a> {
-    client: &'a Stytch,
-}
-
-impl<'a> MagicLinks<'a> {
-    pub fn new(client: &'a Stytch) -> Self {
-        Self { client }
-    }
-
-    pub fn email(&self, email: String) -> Email {
-        Email {
-            email,
-            base: Base::new(self.client),
-            client: self.client,
-        }
-    }
-}
 
 #[derive(Debug, Clone)]
 pub struct Email<'a> {
@@ -48,7 +29,7 @@ impl<'a> Email<'a> {
     pub async fn login_or_create(
         &self,
         params: LoginOrCreateParams,
-    ) -> Result<reqwest::Response, crate::errors::StytchErrorTypes> {
+    ) -> Result<LoginOrCreateResponse, StytchErrorTypes> {
         let params = LoginOrCreateParams {
             // if login_magic_link_url is not set, set it to ""
             login_magic_link_url: Some(params.login_magic_link_url.unwrap_or("".to_string())),
@@ -73,6 +54,9 @@ impl<'a> Email<'a> {
         match res {
             Ok(res) => {
                 if res.status() == 200 {
+                    let res =
+                        serde_json::from_str::<LoginOrCreateResponse>(&res.text().await.unwrap())
+                            .expect("Could not parse LoginOrCreateResponse");
                     Ok(res)
                 } else {
                     let error = serde_json::from_str::<Error>(&res.text().await.unwrap());
@@ -83,10 +67,7 @@ impl<'a> Email<'a> {
         }
     }
 
-    pub async fn invite(
-        &self,
-        params: InviteParams,
-    ) -> Result<reqwest::Response, crate::errors::StytchErrorTypes> {
+    pub async fn invite(&self, params: InviteParams) -> Result<InviteResponse, StytchErrorTypes> {
         let params = InviteParams {
             invite_magic_link_url: Some(params.invite_magic_link_url.unwrap_or("".to_string())),
             invite_expiration_minutes: Some(params.invite_expiration_minutes.unwrap_or(5)),
@@ -112,6 +93,8 @@ impl<'a> Email<'a> {
         match res {
             Ok(res) => {
                 if res.status() == 200 {
+                    let res = serde_json::from_str::<InviteResponse>(&res.text().await.unwrap())
+                        .expect("Could not parse InviteResponse");
                     Ok(res)
                 } else {
                     let error = serde_json::from_str::<Error>(&res.text().await.unwrap());
@@ -122,7 +105,7 @@ impl<'a> Email<'a> {
         }
     }
 
-    pub async fn revoke(&self) -> Result<reqwest::Response, crate::errors::StytchErrorTypes> {
+    pub async fn revoke(&self) -> Result<RevokeInviteResponse, StytchErrorTypes> {
         let url = format!("{}/email/revoke_invite", self.magic_link_url());
         let data = serde_json::json!({
             "email": self.email,
@@ -131,6 +114,9 @@ impl<'a> Email<'a> {
         match res {
             Ok(res) => {
                 if res.status() == 200 {
+                    let res =
+                        serde_json::from_str::<RevokeInviteResponse>(&res.text().await.unwrap())
+                            .expect("Could not parse RevokeInviteResponse");
                     Ok(res)
                 } else {
                     let error = serde_json::from_str::<Error>(&res.text().await.unwrap());

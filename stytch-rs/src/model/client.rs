@@ -1,7 +1,8 @@
 use reqwest::Client;
 
+use crate::api::magiclink::magic_links::MagicLinks;
+
 //  Stytch API Python client.
-use crate::api::magic_links::MagicLinks;
 
 #[derive(Debug, Clone)]
 pub struct Stytch {
