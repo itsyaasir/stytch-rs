@@ -35,11 +35,7 @@ async fn main() {
     }
 
     // // Get token key
-    match client
-        .magic_links()
-        .authenticate("bvmkRgzO-WQM8hAswNWseGstD5A09jeu0gpRa91A_w_p".into())
-        .await
-    {
+    match client.magic_links().authenticate("".into()).await {
         Ok(res) => println!("{:?}", res),
         Err(e) => println!("{:?}", e),
     }
