@@ -13,6 +13,17 @@ use crate::{
 
 use super::email::Email;
 
+// Macros
+// #[macro_export]
+// macro_rules! create_attribute {
+//     ($key:expr, $value:expr) => {
+//         if $value.is_some() {
+//             let mut map = HashMap::new();
+//             map.insert($key, $value.unwrap());
+//             attributes.push(map);
+//         }
+//     };
+// }
 #[derive(Debug, Clone)]
 pub struct MagicLinks<'a> {
     client: &'a Stytch,
@@ -110,17 +121,10 @@ impl<'a> MagicLinks<'a> {
         let base = Base::new(self.client);
         let url = format!("{}/", base.get_url("magic_links"));
 
-        let attributes = params.attributes;
-        let mut attributes_map: HashMap<String, String> = HashMap::new();
-        if attributes.is_some() {
-            let attributes = attributes.unwrap();
-            attributes_map.insert("ip_address".to_string(), attributes.ip_address);
-            attributes_map.insert("user_agent".to_string(), attributes.user_agent);
-        }
         let data = serde_json::json!({
             "user_id": params.user_id,
             "expiration_minutes": params.expiration_minutes,
-            "attributes": attributes_map,
+            "attributes": base.get_attributes(params.attributes),
         });
         let res = base.post(url, data.to_string()).await;
         match res {

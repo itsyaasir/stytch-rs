@@ -82,6 +82,7 @@ pub struct InviteParams {
     pub last_name: Option<String>,
     pub middle_name: Option<String>,
 }
+
 /// `InviteResponse` is returned from `invite` method
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct InviteResponse {
@@ -97,6 +98,7 @@ pub struct RevokeInviteResponse {
     pub request_id: String,
     pub status_code: i32,
 }
+
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct AuthenticateResponse {
     pub request_id: String,

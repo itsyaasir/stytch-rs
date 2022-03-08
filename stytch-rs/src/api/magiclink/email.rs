@@ -1,5 +1,3 @@
-use std::collections::HashMap;
-
 use crate::{
     api::base::Base,
     errors::{Error, StytchErrorTypes},
@@ -26,23 +24,29 @@ impl<'a> Email<'a> {
 
     // Set login_magic_link_url
 
+    /// .
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use stytch_rs::api::magiclink::email::Email;
+    ///
+    /// let email = ;
+    /// assert_eq!(email.login_or_create(params), );
+    /// ```
+    ///
+    /// # Panics
+    ///
+    /// Panics if .
+    ///
+    /// # Errors
+    ///
+    /// This function will return an error if .
     pub async fn login_or_create(
         &self,
         params: LoginOrCreateParams,
     ) -> Result<LoginOrCreateResponse, StytchErrorTypes> {
         // Extract attributes from params and assign to Attributes struct
-        let attributes = params.attributes;
-
-        // Hashmap
-        let mut attributes_map: HashMap<String, String> = HashMap::new();
-
-        // Create a new HashMap to store the attributes
-        if attributes.is_some() {
-            let attributes = attributes.unwrap();
-
-            attributes_map.insert("ip_address".to_string(), attributes.ip_address);
-            attributes_map.insert("user_agent".to_string(), attributes.user_agent);
-        }
 
         let data = serde_json::json!({
             "email": self.email,
@@ -50,7 +54,7 @@ impl<'a> Email<'a> {
             "signup_magic_link_url": params.signup_magic_link_url,
             "login_expiration_minutes": params.login_expiration_minutes.unwrap_or(5),
             "signup_expiration_minutes": params.signup_expiration_minutes.unwrap_or(5),
-            "attributes": attributes_map,
+            "attributes": self.base.get_attributes(params.attributes),
             "create_user_as_pending": params.create_user_as_pending.unwrap_or(false),
         });
         let url = format!("{}/email/login_or_create", self.magic_link_url());
@@ -71,23 +75,30 @@ impl<'a> Email<'a> {
         }
     }
 
+    /// .
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use stytch_rs::api::magiclink::email::Email;
+    ///
+    /// let email = ;
+    /// assert_eq!(email.invite(params), );
+    /// ```
+    ///
+    /// # Panics
+    ///
+    /// Panics if .
+    ///
+    /// # Errors
+    ///
+    /// This function will return an error if .
     pub async fn invite(&self, params: InviteParams) -> Result<InviteResponse, StytchErrorTypes> {
-        // Extract attributes from params and assign to Attributes struct
-        let attributes = params.attributes;
-
-        let mut attributes_map = HashMap::new();
-        if attributes.is_some() {
-            let attributes = attributes.unwrap();
-
-            attributes_map.insert("ip_address".to_string(), attributes.ip_address);
-            attributes_map.insert("user_agent".to_string(), attributes.user_agent);
-        }
-
         let data = serde_json::json!({
             "email": self.email,
             "invite_magic_link_url": params.invite_magic_link_url,
             "invite_expiration_minutes": params.invite_expiration_minutes.unwrap(),
-            "attributes": attributes_map,
+            "attributes": self.base.get_attributes(params.attributes),
             "name" : {
                 "first_name": params.first_name.unwrap_or("".to_string()),
                 "last_name": params.last_name.unwrap_or("".to_string()),
@@ -111,6 +122,24 @@ impl<'a> Email<'a> {
         }
     }
 
+    /// .
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use stytch_rs::api::magiclink::email::Email;
+    ///
+    /// let email = ;
+    /// assert_eq!(email.revoke(), );
+    /// ```
+    ///
+    /// # Panics
+    ///
+    /// Panics if .
+    ///
+    /// # Errors
+    ///
+    /// This function will return an error if .
     pub async fn revoke(&self) -> Result<RevokeInviteResponse, StytchErrorTypes> {
         let url = format!("{}/email/revoke_invite", self.magic_link_url());
         let data = serde_json::json!({

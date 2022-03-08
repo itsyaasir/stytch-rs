@@ -1,4 +1,4 @@
-use crate::model::client::Stytch;
+use crate::model::{client::Stytch, magic_link_model::Attributes};
 use std::{collections::HashMap, str::FromStr};
 
 // Const version number
@@ -63,5 +63,68 @@ impl Base {
             .send()
             .await;
         response
+    }
+
+    pub async fn get(&self, url: String) -> Result<reqwest::Response, reqwest::Error> {
+        println!("URL : {}", url);
+        let response = reqwest::Client::new()
+            .get(url)
+            .basic_auth(
+                self.auth.get("project_id").unwrap(),
+                Some(self.auth.get("secret").unwrap()),
+            )
+            .headers(self.headers.clone())
+            .send()
+            .await;
+        response
+    }
+
+    pub async fn put(
+        &self,
+        url: String,
+        data: String,
+    ) -> Result<reqwest::Response, reqwest::Error> {
+        println!("URL : {}", url);
+        let response = reqwest::Client::new()
+            .put(url)
+            .basic_auth(
+                self.auth.get("project_id").unwrap(),
+                Some(self.auth.get("secret").unwrap()),
+            )
+            .headers(self.headers.clone())
+            .body(data)
+            .send()
+            .await;
+        response
+    }
+
+    pub async fn delete(
+        &self,
+        url: String,
+        data: String,
+    ) -> Result<reqwest::Response, reqwest::Error> {
+        println!("URL : {}", url);
+        let response = reqwest::Client::new()
+            .delete(url)
+            .basic_auth(
+                self.auth.get("project_id").unwrap(),
+                Some(self.auth.get("secret").unwrap()),
+            )
+            .headers(self.headers.clone())
+            .body(data)
+            .send()
+            .await;
+        response
+    }
+
+    //
+    pub fn get_attributes(&self, params: Option<Attributes>) -> HashMap<String, String> {
+        let mut attributes_map: HashMap<String, String> = HashMap::new();
+        if params.is_some() {
+            let attributes = params.unwrap();
+            attributes_map.insert("ip_address".to_string(), attributes.ip_address);
+            attributes_map.insert("user_agent".to_string(), attributes.user_agent);
+        }
+        attributes_map
     }
 }

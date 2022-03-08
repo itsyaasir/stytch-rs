@@ -4,6 +4,7 @@
 
 use std::collections::HashMap;
 
+use crate::model::magic_link_model::Attributes;
 use crate::{
     api::base::Base,
     errors::{Error, StytchErrorTypes},
@@ -48,18 +49,11 @@ impl<'a> Sms<'a> {
     ) -> Result<OTPsSMSSendResponse, StytchErrorTypes> {
         let url = format!("{}/sms/send", self.base.get_url("otps"));
         println!("{}", url);
-        let attributes = params.attributes;
-        let mut attributes_map = HashMap::new();
-        if attributes.is_some() {
-            let attributes = attributes.unwrap();
-            attributes_map.insert("ip_address".to_string(), attributes.ip_address);
-            attributes_map.insert("user_agent".to_string(), attributes.user_agent);
-        }
 
         let data = serde_json::json!({
             "phone_number": self.phone_number,
             "expiration_minutes": params.expiration_minutes,
-            "attributes": attributes_map,
+            "attributes": self.base.get_attributes(params.attributes),
         });
         let res = self.base.post(url, data.to_string()).await;
         match res {
@@ -103,18 +97,12 @@ impl<'a> Sms<'a> {
     ) -> Result<OTPsSMSLoginOrCreateResponse, StytchErrorTypes> {
         let url = format!("{}/sms/login_or_create", self.base.get_url("otps"));
         println!("{}", url);
-        let attributes = params.attributes;
-        let mut attributes_map = HashMap::new();
-        if attributes.is_some() {
-            let attributes = attributes.unwrap();
-            attributes_map.insert("ip_address".to_string(), attributes.ip_address);
-            attributes_map.insert("user_agent".to_string(), attributes.user_agent);
-        }
+
         let data = serde_json::json!({
             "phone_number": self.phone_number,
             "expiration_minutes": params.expiration_minutes,
             "create_user_as_pending": params.create_user_as_pending,
-            "attributes": attributes_map,
+            "attributes":  self.base.get_attributes(params.attributes),
         });
         let res = self.base.post(url, data.to_string()).await;
         match res {

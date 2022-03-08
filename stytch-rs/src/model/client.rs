@@ -40,7 +40,7 @@ impl Stytch {
     pub fn magic_links(&self) -> MagicLinks {
         MagicLinks::new(self)
     }
-
+    /// `OTPs` methods are called from here
     pub fn otp(&self) -> Otp {
         Otp::new(self)
     }
