@@ -46,16 +46,6 @@ impl Base {
         format!("{}{}", self.client.environment.base_url(), arg)
     }
 
-    pub fn validate_fields(&self, accepted_fields: &[&str], fields: &[&str]) -> bool {
-        if accepted_fields.iter().cloned().collect::<Vec<&str>>().len()
-            + fields.iter().cloned().collect::<Vec<&str>>().len()
-            > accepted_fields.len()
-        {
-            panic!("Unknown arguments applied");
-        }
-        true
-    }
-
     pub async fn post(
         &self,
         url: String,

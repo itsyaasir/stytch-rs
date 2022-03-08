@@ -1,6 +1,4 @@
-use reqwest::Client;
-
-use crate::api::magiclink::magic_links::MagicLinks;
+use crate::api::{magiclink::magic_links::MagicLinks, otp::otp::Otp};
 
 //  Stytch API Python client.
 
@@ -9,7 +7,6 @@ pub struct Stytch {
     pub project_id: String,
     pub secret: String,
     pub environment: Environment,
-    pub http_client: Client,
 }
 
 // Make the client available to the rest of the program.
@@ -27,15 +24,10 @@ impl Stytch {
     /// );
     /// ```
     pub fn new(project_id: String, secret: String, environment: Environment) -> Self {
-        let http_client = Client::builder()
-            .connect_timeout(std::time::Duration::from_secs(1000))
-            .build()
-            .expect("Failed to build HTTP client");
         Self {
             project_id,
             secret,
             environment,
-            http_client,
         }
     }
 
@@ -47,6 +39,10 @@ impl Stytch {
     // #[cfg(feature = "magic-links")]
     pub fn magic_links(&self) -> MagicLinks {
         MagicLinks::new(self)
+    }
+
+    pub fn otp(&self) -> Otp {
+        Otp::new(self)
     }
 }
 
