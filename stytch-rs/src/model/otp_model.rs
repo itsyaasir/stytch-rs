@@ -63,3 +63,56 @@ pub struct OTPsSMSLoginOrCreateResponse {
     pub phone_id: String,
     pub user_created: bool,
 }
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct OTPsWhatsAppSendParams {
+    pub expiration_minutes: Option<i32>,
+    pub attributes: Option<Attributes>,
+}
+
+impl OTPsWhatsAppSendParams {
+    pub fn new(expiration_minutes: Option<i32>, attributes: Option<Attributes>) -> Self {
+        Self {
+            expiration_minutes,
+            attributes,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct OTPsWhatsAppSendResponse {
+    pub request_id: String,
+    pub status_code: i32,
+    pub user_id: String,
+    pub phone_id: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct OTPsWhatsAppLoginOrCreateParams {
+    pub expiration_minutes: Option<i32>,
+    pub attributes: Option<Attributes>,
+    pub create_user_as_pending: Option<bool>,
+}
+
+impl OTPsWhatsAppLoginOrCreateParams {
+    pub fn new(
+        expiration_minutes: Option<i32>,
+        attributes: Option<Attributes>,
+        create_user_as_pending: Option<bool>,
+    ) -> Self {
+        Self {
+            expiration_minutes,
+            attributes,
+            create_user_as_pending,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct OTPsWhatsAppLoginOrCreateResponse {
+    pub request_id: String,
+    pub status_code: i32,
+    pub user_id: String,
+    pub phone_id: String,
+    pub user_created: bool,
+}

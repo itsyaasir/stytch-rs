@@ -128,8 +128,7 @@ pub struct MagicLinksCreateParams {
     pub attributes: Option<Attributes>,
 }
 
-
-// 
+//
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct MagicLinksCreateResponse {
     pub request_id: String,
@@ -137,3 +136,4 @@ pub struct MagicLinksCreateResponse {
     pub user_id: String,
     pub token: String,
 }
+

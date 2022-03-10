@@ -2,9 +2,6 @@
 //             base: Base::new(&self.client),
 //             client: &self.client,
 
-use std::collections::HashMap;
-
-use crate::model::magic_link_model::Attributes;
 use crate::{
     api::base::Base,
     errors::{Error, StytchErrorTypes},
@@ -79,7 +76,7 @@ impl<'a> Sms<'a> {
     /// ```
     /// use stytch_rs::api::otp::sms::sms::Sms;
     ///
-    /// let sms = ;
+    /// let sms  ;
     /// assert_eq!(sms.login_or_create(params), );
     /// ```
     ///

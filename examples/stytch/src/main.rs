@@ -1,8 +1,9 @@
-
-
-use stytch_rs::model::{
-    client::{Environment, Stytch},
-    otp_model::OTPsSMSLoginOrCreateParams,
+use stytch_rs::{
+    errors::StytchErrorTypes,
+    model::{
+        client::{Environment, Stytch},
+        otp_model::{OTPsSMSLoginOrCreateParams, OTPsSMSSendParams, OTPsWhatsAppSendParams},
+    },
 };
 
 #[tokio::main]
@@ -15,15 +16,11 @@ async fn main() {
     let client = Stytch::new(project_id, secret, Environment::Test);
 
     // OTP
-    let params = OTPsSMSLoginOrCreateParams::new(Some(5), None, Some(true));
+    let params = OTPsSMSSendParams::new(5, None);
+    let phone_no = "+100000000";
 
-    match client
-        .otp()
-        .sms("+10000000000".into())
-        .login_or_create(params)
-        .await
-    {
-        Ok(res) => println!("{:?}", res),
-        Err(e) => println!("{:?}", e),
+    match client.otp().sms(phone_no.into()).send(params).await {
+        Ok(res) => println!("Response : {:?}", res),
+        Err(e) => println!("Error {}", e),
     }
 }
