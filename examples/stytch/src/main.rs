@@ -21,7 +21,7 @@ async fn main() {
 
     match client
         .otp()
-        .whatsapp("+254791559129".into())
+        .whatsapp("+1000000000".into())
         .send(params)
         .await
     {
