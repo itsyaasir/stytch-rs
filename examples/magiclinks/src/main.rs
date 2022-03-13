@@ -1,4 +1,4 @@
-use stytch::{Environment, Stytch, LoginOrCreateParams, Attributes};
+use stytch::{Attributes, Environment, LoginOrCreateParams, Stytch};
 
 #[tokio::main]
 async fn main() {
@@ -10,22 +10,28 @@ async fn main() {
     let client = Stytch::new(project_id, secret, Environment::Live);
     // Attributes
     let attr = Attributes {
-        ip_address: "0.0.0.0",
-        user_agent:"user agent "
-    }
+        ip_address: "0.0.0.0".into(),
+        user_agent: "user agent".into(),
+    };
     // LoginOrCreateParams
-    let params = LoginOrCreateParams::new("login_magic_url_here","signup_magic_url_here","login_expiration_minutes", "signup_expiration_minutes",attr,
-    "create_user_as_pending");
+    let params = LoginOrCreateParams::new(
+        "login_magic_url_here".to_string(),
+        "signup_magic_url_here".to_string(),
+        Some(5),
+        Some(5),
+        Some(attr),
+        Some(true),
+    );
 
     // magic links
     let res = client
-    .magic_links()
-    .email("test@test.com")
-    .login_or_create(params)
-    .await
+        .magic_links()
+        .email("test@test.com".into())
+        .login_or_create(params)
+        .await;
 
     match res {
-        Ok(res) => println!("Response: {}",res)
-        Err(e) => println!("Error: {}",e)
+        Ok(res) => println!("Response: {:?}", res),
+        Err(e) => println!("Error: {}", e),
     }
 }
