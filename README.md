@@ -22,7 +22,7 @@ An unofficial Rust wrapper around the [Stytch](https://stytch.com/docs) for acce
 
 ```toml
 [dependencies]
-stytch = "0.1.0"
+stytch = "0.2.0"
 
 In your lib or binary crate:
 
@@ -49,6 +49,7 @@ let client = Stytch::new(project_id, secret, Environment::Test);
 ```
 
 If you intend to use Live Environment, you can use the following:
+
  ```rust
 let project_id = dotenv::var("PROJECT_ID").unwrap();
 let secret = dotenv::var("SECRET").unwrap();
@@ -57,9 +58,13 @@ If you intend to use Test Environment, you can use the following:
      Client
 let client = Stytch::new(project_id, secret, Environment::Live);
 ```
+
 ### Services
+
 ## Magic Links
+
 * Login or Create
+
 ```rust
 use stytch::{Environment, Stytch, LoginOrCreateParams, Attributes};
     // Attributes
@@ -85,8 +90,8 @@ use stytch::{Environment, Stytch, LoginOrCreateParams, Attributes};
 
 **Yasir Shariff**
 
-- Twitter: [@itsyaasir](https://twitter.com/itsyaasir)
-- Not affiliated with Stytch.
+* Twitter: [@itsyaasir](https://twitter.com/itsyaasir)
+* Not affiliated with Stytch.
 
 Copyright © 2021 [Yasir Shariff](https://github.com/itsyaasir).<br />
 This project is [MIT](LICENSE) licensed.

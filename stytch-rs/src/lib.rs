@@ -8,7 +8,7 @@
 
 //! ```toml
 //! [dependencies]
-//! stytch = "0.1.0"
+//! stytch = "0.2.0"
 
 //! In your lib or binary crate:
 
