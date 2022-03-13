@@ -27,7 +27,7 @@ impl<'a> Sms<'a> {
     /// # Examples
     ///
     /// ```
-    /// use stytch_rs::api::otp::sms::sms::Sms;
+    /// use stytch::api::otp::sms::sms::Sms;
     ///
     /// let sms = ;
     /// assert_eq!(sms.send(params), );
@@ -74,7 +74,7 @@ impl<'a> Sms<'a> {
     /// # Examples
     ///
     /// ```
-    /// use stytch_rs::api::otp::sms::sms::Sms;
+    /// use stytch::api::otp::sms::sms::Sms;
     ///
     /// let sms  ;
     /// assert_eq!(sms.login_or_create(params), );

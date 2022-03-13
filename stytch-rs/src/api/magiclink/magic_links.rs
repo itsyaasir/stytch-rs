@@ -1,5 +1,3 @@
-use std::collections::HashMap;
-
 use crate::{
     api::base::Base,
     errors::errors::{Error, StytchErrorTypes},
@@ -13,17 +11,6 @@ use crate::{
 
 use super::email::Email;
 
-// Macros
-// #[macro_export]
-// macro_rules! create_attribute {
-//     ($key:expr, $value:expr) => {
-//         if $value.is_some() {
-//             let mut map = HashMap::new();
-//             map.insert($key, $value.unwrap());
-//             attributes.push(map);
-//         }
-//     };
-// }
 #[derive(Debug, Clone)]
 pub struct MagicLinks<'a> {
     client: &'a Stytch,
@@ -39,7 +26,7 @@ impl<'a> MagicLinks<'a> {
     /// # Examples
     ///
     /// ```
-    /// use stytch_rs::api::magiclink::magic_links::MagicLinks;
+    /// use stytch::api::magiclink::magic_links::MagicLinks;
     ///
     /// let magic_links = ;
     /// assert_eq!(magic_links.email(email), );
@@ -57,7 +44,7 @@ impl<'a> MagicLinks<'a> {
     /// # Examples
     ///
     /// ```
-    /// use stytch_rs::api::magiclink::magic_links::MagicLinks;
+    /// use stytch::api::magiclink::magic_links::MagicLinks;
     ///
     /// let magic_links = ;
     /// assert_eq!(magic_links.authenticate(token), );
@@ -101,7 +88,7 @@ impl<'a> MagicLinks<'a> {
     /// # Examples
     ///
     /// ```
-    /// use stytch_rs::api::magiclink::magic_links::MagicLinks;
+    /// use stytch::api::magiclink::magic_links::MagicLinks;
     ///
     /// assert_eq!(MagicLinks::create(params), );
     /// ```

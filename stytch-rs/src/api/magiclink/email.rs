@@ -29,7 +29,7 @@ impl<'a> Email<'a> {
     /// # Examples
     ///
     /// ```
-    /// use stytch_rs::api::magiclink::email::Email;
+    /// use stytch::api::magiclink::email::Email;
     ///
     /// let email = ;
     /// assert_eq!(email.login_or_create(params), );
@@ -80,7 +80,7 @@ impl<'a> Email<'a> {
     /// # Examples
     ///
     /// ```
-    /// use stytch_rs::api::magiclink::email::Email;
+    /// use stytch::api::magiclink::email::Email;
     ///
     /// let email = ;
     /// assert_eq!(email.invite(params), );
@@ -127,7 +127,7 @@ impl<'a> Email<'a> {
     /// # Examples
     ///
     /// ```
-    /// use stytch_rs::api::magiclink::email::Email;
+    /// use stytch::api::magiclink::email::Email;
     ///
     /// let email = ;
     /// assert_eq!(email.revoke(), );

@@ -23,7 +23,7 @@ impl<'a> Whatsapp<'a> {
     /// # Examples
     ///
     /// ```
-    /// use stytch_rs::api::otp::whatsapp::whatsapp::Whatsapp;
+    /// use stytch::api::otp::whatsapp::whatsapp::Whatsapp;
     ///
     /// let whatsapp = ;
     /// assert_eq!(whatsapp.send(params), );
