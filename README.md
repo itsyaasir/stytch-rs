@@ -1,4 +1,4 @@
-# mpesa-rust
+# Stytch Rust
 
 <p>
    <a href="https://crates.io/crates/mpesa" target="_blank">

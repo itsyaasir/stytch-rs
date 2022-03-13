@@ -24,11 +24,11 @@
 //! **SECRET**
 
 //! _NOTE_:
-
+//! 
+//! If you intend to use Test Environment, you can use the following:
 //! ```rust
 //! let project_id = dotenv::var("PROJECT_ID").unwrap();
 //! let secret = dotenv::var("SECRET").unwrap();
-//! If you intend to use Test Environment, you can use the following:
 //!
 //!      Client
 //! let client = Stytch::new(project_id, secret, Environment::Test);
