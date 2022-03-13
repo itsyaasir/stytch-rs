@@ -2,10 +2,10 @@
 
 <p>
    <a href="https://crates.io/crates/mpesa" target="_blank">
-     <img alt="Version" src="https://img.shields.io/crates/v/stytch-rs" />
+     <img alt="Version" src="https://img.shields.io/crates/v/stytch" />
    </a>
   <a href="https://docs.rs/stytch-rs" target="_blank">
-    <img alt="Documentation" src="https://docs.rs/stytch-rs/badge.svg" />
+    <img alt="Documentation" src="https://docs.rs/stytch/badge.svg" />
   </a>
   <a href="LICENSE" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
