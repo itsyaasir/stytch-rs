@@ -22,7 +22,7 @@ An unofficial Rust wrapper around the [Stytch](https://stytch.com/docs) for acce
 
 ```toml
 [dependencies]
-stytch = "0.2.0"
+stytch = "0.2.1"
 
 In your lib or binary crate:
 
@@ -37,14 +37,12 @@ use stytch::Stytch;
 You will first need to create an instance of the `Stytch` instance (the client). You are required to provide a **PROJECT_ID** and
 **SECRET**
 
-_NOTE_:
+If you intend to use Test Environment, use the following:
 
 ```rust
 let project_id = dotenv::var("PROJECT_ID").unwrap();
 let secret = dotenv::var("SECRET").unwrap();
-If you intend to use Test Environment, you can use the following:
-
-     Client
+    //  Client
 let client = Stytch::new(project_id, secret, Environment::Test);
 ```
 
@@ -53,9 +51,7 @@ If you intend to use Live Environment, you can use the following:
  ```rust
 let project_id = dotenv::var("PROJECT_ID").unwrap();
 let secret = dotenv::var("SECRET").unwrap();
-If you intend to use Test Environment, you can use the following:
-
-     Client
+     // Client
 let client = Stytch::new(project_id, secret, Environment::Live);
 ```
 
@@ -69,19 +65,23 @@ let client = Stytch::new(project_id, secret, Environment::Live);
 use stytch::{Environment, Stytch, LoginOrCreateParams, Attributes};
     // Attributes
    let attr = Attributes {
-       ip_address: "0.0.0.0",
-       user_agent:"user agent "
-   }
+       ip_address: "0.0.0.0".into(),
+       user_agent:"user agent".into()
+   };
   // Login or Create Paramters
-   let params = LoginOrCreateParams::new("login_magic_url_here","signup_magic_url_here","login_expiration_minutes", "signup_expiration_minutes",attr,
-   "create_user_as_pending");
+   let params = LoginOrCreateParams::new("login_magic_url_here",
+   "signup_magic_url_here",
+   Some(5),
+   Some(5),
+   Some(attr),
+   Some(true));
 
-   magic links
+   // magic links
    let res = client
    .magic_links()
-   .email("test@test.com")
+   .email("test@test.com".into())
    .login_or_create(params)
-   .await
+   .await;
 ```
 
 ### More Examples will be added
