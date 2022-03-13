@@ -1,13 +1,11 @@
-use serde::{Deserialize, Serialize};
-
 use crate::{
     api::base::Base,
     errors::{Error, StytchErrorTypes},
     model::{
         client::Stytch,
         otp_model::{
-            OTPsSMSLoginOrCreateResponse, OTPsWhatsAppLoginOrCreateParams,
-            OTPsWhatsAppLoginOrCreateResponse, OTPsWhatsAppSendParams, OTPsWhatsAppSendResponse,
+            OTPsWhatsAppLoginOrCreateParams, OTPsWhatsAppLoginOrCreateResponse,
+            OTPsWhatsAppSendParams, OTPsWhatsAppSendResponse,
         },
     },
 };

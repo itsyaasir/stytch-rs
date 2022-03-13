@@ -16,10 +16,15 @@ async fn main() {
     let client = Stytch::new(project_id, secret, Environment::Test);
 
     // OTP
-    let params = OTPsSMSSendParams::new(5, None);
-    let phone_no = "+100000000";
+    let params = OTPsWhatsAppSendParams::new(Some(5), None);
+    let phone_no = "+";
 
-    match client.otp().sms(phone_no.into()).send(params).await {
+    match client
+        .otp()
+        .whatsapp("+254791559129".into())
+        .send(params)
+        .await
+    {
         Ok(res) => println!("Response : {:?}", res),
         Err(e) => println!("Error {}", e),
     }
