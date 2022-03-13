@@ -1,5 +1,5 @@
 [package]
-name = "stytch"
+name = "magiclinks"
 version = "0.1.0"
 edition = "2021"
 
@@ -8,7 +8,7 @@ edition = "2021"
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-stytch-rs = { path = "../../stytch-rs" }
+stytch = { path = "../../stytch-rs" }
 dotenv = "0.15.0"
 tokio = { version = "1.17.0", features = ["full"] }
 anyhow = "1.0.0"

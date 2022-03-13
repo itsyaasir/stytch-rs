@@ -1,11 +1,16 @@
 [package]
-name = "stytch-rs"
+name = "stytch"
 version = "0.1.0"
 edition = "2021"
-description = "Unofficial Stytch Rust"
+description = "Unofficial Stytch Client for Rust"
 license = "MIT"
+documentation = "https://docs.rs/stytch-rs"
+readme = "../README.md"
+homepage = "https://github.com/itsyaasir/stytch-rs"
+repository = "https://github.com/itsyaasir/stytch-rs"
+keywords = ["rust", "stytch", "auth", "client","otp"]
+categories = ["web-programming"]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 serde = {version = "1.0.136", features = ["derive"]}
