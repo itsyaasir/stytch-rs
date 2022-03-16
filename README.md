@@ -1,7 +1,7 @@
 # Stytch Rust
 
 <p>
-   <a href="https://crates.io/crates/mpesa" target="_blank">
+   <a href="https://crates.io/crates/stytch" target="_blank">
      <img alt="Version" src="https://img.shields.io/crates/v/stytch" />
    </a>
   <a href="https://docs.rs/stytch-rs" target="_blank">
