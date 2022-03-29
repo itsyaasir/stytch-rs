@@ -69,7 +69,6 @@ impl<'a> Whatsapp<'a> {
 
     pub async fn login_or_create(
         &self,
-
         params: OTPsWhatsAppLoginOrCreateParams,
     ) -> Result<OTPsWhatsAppLoginOrCreateResponse, StytchErrorTypes> {
         let url = format!("{}/whatsapp/login_or_create", self.base.get_url("otps"));

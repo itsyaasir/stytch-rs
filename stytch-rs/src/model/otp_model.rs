@@ -116,3 +116,17 @@ pub struct OTPsWhatsAppLoginOrCreateResponse {
     pub phone_id: String,
     pub user_created: bool,
 }
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct OTPsEmailSendParams {
+    pub expiration_minutes: Option<i32>,
+    pub attributes: Option<Attributes>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct OTPsEmailSendResponse {
+    request_id: String,
+    status_code: i32,
+    user_id: String,
+    email_id: String,
+}
