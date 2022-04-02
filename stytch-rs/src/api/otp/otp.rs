@@ -1,4 +1,5 @@
-use crate::{api::base::Base, model::client::Stytch};
+use crate::{api::base::Base, Email, model::client::Stytch};
+use crate::otp::email::email::OtpEmail;
 
 use super::{sms::sms::Sms, whatsapp::whatsapp::Whatsapp};
 
@@ -25,6 +26,14 @@ impl<'a> Otp<'a> {
             phone_number,
             base: Base::new(&self.client),
             client: &self.client,
+        }
+    }
+
+    pub fn email(&self,email:String)-> OtpEmail {
+        OtpEmail {
+            email,
+            base:Base::new(&self.client),
+            client: &self.client
         }
     }
 }

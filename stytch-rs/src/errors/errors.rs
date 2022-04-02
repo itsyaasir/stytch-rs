@@ -27,6 +27,7 @@ impl std::fmt::Display for Error {
     }
 }
 
+
 impl Error {
     pub fn new(
         status_code: i32,

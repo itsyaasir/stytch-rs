@@ -71,4 +71,5 @@ impl Environment {
             Environment::Live => "https://api.stytch.com/v1/".to_string(),
         }
     }
+
 }

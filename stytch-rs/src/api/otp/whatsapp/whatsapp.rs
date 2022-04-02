@@ -84,10 +84,8 @@ impl<'a> Whatsapp<'a> {
         match res {
             Ok(res) => {
                 if res.status() == 200 {
-                    let res = serde_json::from_str::<OTPsWhatsAppLoginOrCreateResponse>(
-                        &res.text().await.unwrap(),
-                    )
-                    .expect("Could not parse LoginOrCreateResponse");
+                    let res = serde_json::from_str(&res.text().await.unwrap())
+                        .expect("Could not parse LoginOrCreateResponse");
                     Ok(res)
                 } else {
                     let error = serde_json::from_str::<Error>(&res.text().await.unwrap());

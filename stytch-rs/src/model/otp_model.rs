@@ -123,8 +123,34 @@ pub struct OTPsEmailSendParams {
     pub attributes: Option<Attributes>,
 }
 
+impl OTPsEmailSendParams {
+    pub fn new(expiration_minutes: Option<i32>, attributes: Option<Attributes>) -> Self {
+        Self {
+            expiration_minutes,
+            attributes,
+        }
+    }
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct OTPsEmailSendResponse {
+    request_id: String,
+    status_code: i32,
+    user_id: String,
+    email_id: String,
+}
+
+// OTPsEmailLoginOrCreateParams
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct OTPsEmailLoginOrCreateParams {
+    pub expiration_minutes: Option<i32>,
+    pub attributes: Option<Attributes>,
+    pub create_user_as_pending: Option<bool>,
+}
+
+// response
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct OTPsEmailLoginOrCreateResponse {
     request_id: String,
     status_code: i32,
     user_id: String,

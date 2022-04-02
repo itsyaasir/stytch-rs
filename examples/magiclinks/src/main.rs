@@ -1,4 +1,4 @@
-use stytch::{Attributes, Environment, LoginOrCreateParams, Stytch};
+use stytch::{Attributes, Environment, OTPsEmailSendParams, Stytch};
 
 #[tokio::main]
 async fn main() {
@@ -7,27 +7,25 @@ async fn main() {
     let secret = dotenv::var("SECRET").unwrap();
 
     // client
-    let client = Stytch::new(project_id, secret, Environment::Live);
+    let client = Stytch::new(project_id, secret, Environment::Test);
     // Attributes
     let attr = Attributes {
-        ip_address: "0.0.0.0".into(),
-        user_agent: "user agent".into(),
+        ip_address: "".into(),
+        user_agent: "".into(),
     };
-    // LoginOrCreateParams
-    let params = LoginOrCreateParams::new(
-        "login_magic_url_here".to_string(),
-        "signup_magic_url_here".to_string(),
-        Some(5),
-        Some(5),
-        Some(attr),
-        Some(true),
-    );
+    // Params
+    let params = OTPsEmailSendParams::new(Some(5), None);
 
     // magic links
+    // let res = client
+    //     .magic_links()
+    //     .email("test@test.com".into())
+    //     .login_or_create(params)
+    //     .await;
     let res = client
-        .magic_links()
-        .email("test@test.com".into())
-        .login_or_create(params)
+        .otp()
+        .email("goodwonder5@gmail.com".into())
+        .send(params)
         .await;
 
     match res {
